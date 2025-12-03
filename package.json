@@ -1,0 +1,29 @@
+{
+  "name": "@anriverax/csv-to-json",
+  "version": "1.0.0",
+  "description": "Convertidor CSV → JSON (CLI y librería) en Node.js",
+  "main": "index.js",
+  "bin": {
+    "csv-to-json": "./bin/csv-to-json.js"
+  },
+  "scripts": {
+    "test": "node test/converter.test.js"
+  },
+  "keywords": [
+    "csv",
+    "json",
+    "converter",
+    "csv-parser",
+    "cli"
+  ],
+  "author": "Anibal Rivera",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anriverax/csv-to-json.git"
+  },
+  "dependencies": {
+    "commander": "^14.0.2",
+    "csv-parser": "^3.2.0"
+  }
+}

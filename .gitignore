@@ -1,3 +1,7 @@
+# Archivos de salida generados
+salida.json
+resultado.json
+
 # Logs
 logs
 *.log

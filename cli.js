@@ -44,8 +44,10 @@ csvToJson(inputPath, outputPath)
   .then((data) => {
     if (!outputPath) {
       console.log(JSON.stringify(data, null, 2));
+      console.log(`\n✓ Conversión completada. ${data.length} registro(s) procesado(s).`);
+    } else {
+      console.log(`✓ Conversión completada. ${data.length} registro(s) procesado(s).`);
     }
-    console.log(`✓ Conversión completada. ${data.length} registro(s) procesado(s).`);
   })
   .catch((error) => {
     console.error('✗ Error:', error.message);

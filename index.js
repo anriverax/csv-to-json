@@ -22,14 +22,16 @@ function csvToJson(inputPath, outputPath = null) {
       .on('end', () => {
         // Si se especifica un archivo de salida, escribir el JSON
         if (outputPath) {
-          try {
-            fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
+          fs.writeFile(outputPath, JSON.stringify(results, null, 2), (error) => {
+            if (error) {
+              return reject(new Error(`Error al escribir el archivo de salida: ${error.message}`));
+            }
             console.log(`✓ Archivo JSON creado: ${outputPath}`);
-          } catch (error) {
-            return reject(new Error(`Error al escribir el archivo de salida: ${error.message}`));
-          }
+            resolve(results);
+          });
+        } else {
+          resolve(results);
         }
-        resolve(results);
       })
       .on('error', (error) => {
         reject(new Error(`Error al leer el archivo CSV: ${error.message}`));

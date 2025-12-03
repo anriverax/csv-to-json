@@ -28,16 +28,17 @@ function csvToJson(inputPath, outputPath = null) {
     stream
       .pipe(csv())
       .on('data', (data) => results.push(data))
-      .on('end', async () => {
+      .on('end', () => {
         // Si se especifica un archivo de salida, escribir el JSON
         if (outputPath) {
-          try {
-            await writeFileAsync(outputPath, JSON.stringify(results, null, 2));
-            console.log(`✓ Archivo JSON creado: ${outputPath}`);
-            resolve(results);
-          } catch (error) {
-            reject(new Error(`Error al escribir el archivo de salida: ${error.message}`));
-          }
+          writeFileAsync(outputPath, JSON.stringify(results, null, 2))
+            .then(() => {
+              console.log(`✓ Archivo JSON creado: ${outputPath}`);
+              resolve(results);
+            })
+            .catch((error) => {
+              reject(new Error(`Error al escribir el archivo de salida: ${error.message}`));
+            });
         } else {
           resolve(results);
         }

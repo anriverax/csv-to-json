@@ -9,7 +9,7 @@ const args = process.argv.slice(2);
 // Función para mostrar ayuda
 function showHelp() {
   console.log(`
-Uso: csv-to-json <archivo-entrada.csv> [archivo-salida.json]
+Uso: node cli.js <archivo-entrada.csv> [archivo-salida.json]
 
 Convierte un archivo CSV a formato JSON.
 
@@ -19,8 +19,11 @@ Argumentos:
                          Si no se especifica, solo muestra el resultado en consola
 
 Ejemplos:
+  node cli.js datos.csv datos.json
+  node cli.js datos.csv
+
+Nota: Si instala el paquete globalmente (npm link), puede usar:
   csv-to-json datos.csv datos.json
-  csv-to-json datos.csv
   `);
 }
 

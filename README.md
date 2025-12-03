@@ -59,6 +59,16 @@ csvToJson('./datos.csv')
   .catch(error => {
     console.error('Error:', error.message);
   });
+
+// Modo silencioso (sin mensajes en consola)
+csvToJson('./datos.csv', './salida.json', { silent: true })
+  .then(data => {
+    // El archivo se crea sin mostrar mensajes
+    console.log('Procesado:', data.length, 'registros');
+  })
+  .catch(error => {
+    console.error('Error:', error.message);
+  });
 ```
 
 ## 📝 Ejemplo

@@ -1,0 +1,14 @@
+[
+  {
+    "nombre,edad,ciudad,profesion": "Juan,30,Madrid,Ingeniero"
+  },
+  {
+    "nombre,edad,ciudad,profesion": "María,25,Barcelona,Diseñadora"
+  },
+  {
+    "nombre,edad,ciudad,profesion": "Pedro,35,Valencia,Profesor"
+  },
+  {
+    "nombre,edad,ciudad,profesion": "Ana,28,Sevilla,Doctora"
+  }
+]

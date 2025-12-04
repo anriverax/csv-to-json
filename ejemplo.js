@@ -1,21 +1,44 @@
 const csvToJson = require('./index');
+const fs = require('fs');
+const path = require('path');
 
-async function runExamples() {
-  try {
-    // Ejemplo 1: Convertir CSV a JSON y guardar en archivo
-    console.log('Ejemplo 1: Convertir y guardar en archivo');
-    const data1 = await csvToJson('./ejemplo.csv', './salida.json');
-    console.log(`✓ Conversión exitosa: ${data1.length} registros`);
-    console.log('Primer registro:', data1[0]);
+async function processAllCSVFiles() {
+	try {
+		// Leer todos los archivos de la carpeta csv
+		const csvFolder = './csv';
+		const jsonFolder = './json';
 
-    // Ejemplo 2: Convertir CSV a JSON sin guardar (solo obtener los datos)
-    console.log('\nEjemplo 2: Obtener datos sin guardar');
-    const data2 = await csvToJson('./ejemplo.csv');
-    console.log('Datos obtenidos:');
-    console.log(JSON.stringify(data2, null, 2));
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
+		// Asegurar que existe la carpeta json
+		if (!fs.existsSync(jsonFolder)) {
+			fs.mkdirSync(jsonFolder, { recursive: true });
+		}
+
+		// Obtener todos los archivos .csv
+		const files = fs.readdirSync(csvFolder).filter((file) => file.endsWith('.csv'));
+
+		console.log(`📁 Encontrados ${files.length} archivos CSV para procesar\n`);
+
+		// Recorrer cada archivo CSV
+		for (const file of files) {
+			const csvPath = path.join(csvFolder, file);
+			console.log(csvFolder);
+			const jsonFileName = file.replace('.csv', '.json');
+			const jsonPath = path.join(jsonFolder, jsonFileName);
+
+			console.log(`⏳ Procesando: ${file}...`);
+
+			try {
+				const data = await csvToJson(csvPath, jsonPath,";");
+				console.log(`✓ ${file} → ${jsonFileName} (${data.length} registros)\n`);
+			} catch (error) {
+				console.error(`✗ Error procesando ${file}:`, error.message, '\n');
+			}
+		}
+
+		console.log('🎉 Proceso completado');
+	} catch (error) {
+		console.error('Error:', error.message);
+	}
 }
 
-runExamples();
+processAllCSVFiles();

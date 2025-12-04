@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const csvToJson = require('./index');
+const csvToJson = require('./extra/index');
 const path = require('path');
 
 // Obtener argumentos de línea de comandos

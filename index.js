@@ -13,12 +13,14 @@ const writeFileAsync = promisify(fs.writeFile);
  * @returns {Promise<Array>} - Promise que resuelve con los datos en formato JSON
  */
 function csvToJson(inputPath, outputPath = null, options = {}) {
-  const { silent = false } = options;
+   const { silent = false, delimiter = ';' } = options;
+     const separator = delimiter === '\\t' ? '\t' : delimiter;
+
   return new Promise((resolve, reject) => {
     const results = [];
-    
+
     const stream = fs.createReadStream(inputPath);
-    
+
     // Handle stream errors before piping
     stream.on('error', (error) => {
       if (error.code === 'ENOENT') {
@@ -29,7 +31,7 @@ function csvToJson(inputPath, outputPath = null, options = {}) {
     });
 
     stream
-      .pipe(csv())
+      .pipe(csv({ separator }))
       .on('data', (data) => results.push(data))
       .on('end', () => {
         // Si se especifica un archivo de salida, escribir el JSON
